@@ -15,6 +15,7 @@
     <h1 class="logo">Jeopardy<span>!</span></h1>
     <div class="topbar-actions">
       <span class="progress" id="progress" aria-live="polite"></span>
+      <button type="button" class="btn btn-ghost btn-sm" id="teams-btn">Teams</button>
     </div>
   </header>
 
@@ -41,9 +42,23 @@
     </section>
   </div>
 
+  <div class="overlay" id="setup-overlay" hidden>
+    <section class="panel" role="dialog" aria-modal="true" aria-labelledby="setup-title">
+      <h2 class="panel-title" id="setup-title">Teams</h2>
+      <p class="panel-sub">Add 2–6 teams and give them names.</p>
+      <ol class="team-inputs" id="team-inputs"></ol>
+      <button type="button" class="btn btn-ghost btn-sm" id="team-add">+ Add team</button>
+      <div class="panel-actions">
+        <button type="button" class="btn btn-ghost" id="setup-cancel">Cancel</button>
+        <button type="button" class="btn btn-gold" id="setup-save">Start Game</button>
+      </div>
+    </section>
+  </div>
+
   <script src="js/questions.js"></script>
   <script src="js/store.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/teams.js"></script>
   <script src="js/clue.js"></script>
   <script src="js/board.js"></script>
   <script src="js/main.js"></script>

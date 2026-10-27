@@ -397,3 +397,238 @@ code {
     transform: none;
   }
 }
+
+.btn-sm {
+  padding: 0.5em 1em;
+  font-size: 0.85rem;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--ink);
+  transition:
+    background 0.15s ease,
+    transform 0.12s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.icon-btn:active {
+  transform: scale(0.92);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--gold-300);
+  outline-offset: 2px;
+}
+
+.icon-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ---------- Dialog panels ---------- */
+.panel {
+  width: min(480px, 100%);
+  max-height: 100%;
+  overflow: auto;
+  padding: clamp(20px, 4vw, 32px);
+  border: 1px solid rgba(245, 197, 66, 0.35);
+  border-radius: 18px;
+  background: linear-gradient(180deg, var(--navy-800), var(--navy-900));
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.15);
+}
+
+.overlay.is-open .panel {
+  transform: none;
+}
+
+.panel-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+}
+
+.panel-sub {
+  margin: 6px 0 18px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+.panel-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.team-inputs {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.team-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: rise 0.25s ease both;
+}
+
+.team-swatch {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--team-color);
+  box-shadow: 0 0 10px var(--team-color);
+}
+
+.team-input input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.7em 0.9em;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.25);
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.team-input input:focus {
+  outline: none;
+  border-color: var(--gold-400);
+  box-shadow: 0 0 0 3px rgba(245, 197, 66, 0.25);
+}
+
+/* ---------- Scoreboard ---------- */
+.scoreboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(8px, 1.2vw, 16px);
+  padding: clamp(10px, 1.6vh, 18px) clamp(10px, 2vw, 28px);
+  padding-bottom: max(clamp(10px, 1.6vh, 18px), env(safe-area-inset-bottom));
+}
+
+.scoreboard:empty {
+  display: none;
+}
+
+.team-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "name  name  name"
+    "minus score plus";
+  align-items: center;
+  gap: 4px 10px;
+  flex: 1 1 150px;
+  max-width: 230px;
+  padding: 10px 12px 12px;
+  border-top: 4px solid var(--team-color);
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--blue-600), var(--blue-700));
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition: box-shadow 0.3s ease;
+}
+
+.team-card.leader {
+  box-shadow:
+    0 0 0 2px var(--gold-400),
+    0 8px 30px rgba(245, 197, 66, 0.25);
+}
+
+.team-name {
+  grid-area: name;
+  overflow: hidden;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink-muted);
+}
+
+.team-card.leader .team-name::before {
+  content: "👑 ";
+}
+
+.team-score {
+  grid-area: score;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  text-shadow: var(--shadow-text);
+}
+
+.team-score.negative {
+  color: var(--wrong);
+}
+
+.adj-minus {
+  grid-area: minus;
+}
+
+.adj-plus {
+  grid-area: plus;
+}
+
+.bump-up {
+  animation: bump-up 0.5s ease;
+}
+
+.bump-down {
+  animation: bump-down 0.5s ease;
+}
+
+@keyframes bump-up {
+  40% {
+    transform: scale(1.25);
+    color: var(--correct);
+  }
+}
+
+@keyframes bump-down {
+  20% {
+    transform: translateX(-6px);
+    color: var(--wrong);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+}

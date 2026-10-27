@@ -15,4 +15,7 @@
   J.board.render();
   J.store.subscribe(J.board.sync);
   J.store.subscribe(updateProgress);
+  J.store.subscribe(J.teams.renderScoreboard);
+
+  if (J.store.state.teams.length === 0) J.teams.openSetup();
 })((window.Jeopardy = window.Jeopardy || {}));
