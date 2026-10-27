@@ -16,6 +16,7 @@
     <div class="topbar-actions">
       <span class="progress" id="progress" aria-live="polite"></span>
       <button type="button" class="btn btn-ghost btn-sm" id="teams-btn">Teams</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="reset-btn">Reset</button>
     </div>
   </header>
 
@@ -52,6 +53,17 @@
       <div class="panel-actions">
         <button type="button" class="btn btn-ghost" id="setup-cancel">Cancel</button>
         <button type="button" class="btn btn-gold" id="setup-save">Start Game</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="overlay" id="confirm-overlay" hidden>
+    <section class="panel panel-sm" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-message">
+      <h2 class="panel-title" id="confirm-title">Reset game?</h2>
+      <p class="panel-sub" id="confirm-message">This clears every score and puts all clues back on the board. Team names are kept.</p>
+      <div class="panel-actions">
+        <button type="button" class="btn btn-ghost" id="confirm-cancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm-ok">Reset Game</button>
       </div>
     </section>
   </div>

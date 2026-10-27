@@ -705,3 +705,17 @@ code {
   background: var(--wrong);
   color: #2b0006;
 }
+
+.btn-danger {
+  background: linear-gradient(180deg, #ff7b87, var(--wrong));
+  color: #2b0006;
+  box-shadow: 0 4px 0 #b3313d, 0 8px 20px rgba(255, 93, 108, 0.25);
+}
+
+.btn-danger:hover {
+  filter: brightness(1.06);
+}
+
+.panel-sm {
+  width: min(420px, 100%);
+}
