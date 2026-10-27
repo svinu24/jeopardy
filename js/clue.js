@@ -18,7 +18,21 @@
     if (clue.pending) {
       return '<p class="clue-pending">This clue hasn\'t been written yet.</p>';
     }
-    return "<p>" + J.ui.format(clue.question) + "</p>";
+
+    let html = "";
+    // Finish the Lyric: either a written excerpt or a cue for the host to play the song.
+    if (clue.cue) {
+      html +=
+        '<div class="clue-cue"><span class="clue-cue-label">🎵 Playback cue</span>' +
+        "<p>" + J.ui.format(clue.cue) + "</p></div>";
+    }
+    if (clue.lyric) {
+      html +=
+        '<p class="clue-lyric-label">Finish the lyric</p>' +
+        '<blockquote class="clue-lyric">' + J.ui.format(clue.lyric).replace(/\n/g, "<br>") + "…</blockquote>";
+    }
+    if (clue.question) html += "<p>" + J.ui.format(clue.question) + "</p>";
+    return html;
   }
 
   function renderAnswer(clue) {
@@ -28,9 +42,17 @@
         const html = J.ui.format(item).replace(/^([^:]{1,40}):/, "<strong>$1:</strong>");
         return "<li>" + html + "</li>";
       });
-      return "<ul>" + items.join("") + "</ul>";
+      return "<ul>" + items.join("") + "</ul>" + renderCredit(clue);
     }
-    return "<p>" + J.ui.format(clue.answer) + "</p>";
+    return "<p>" + J.ui.format(clue.answer) + "</p>" + renderCredit(clue);
+  }
+
+  // Song and artist stay hidden until the answer is revealed.
+  function renderCredit(clue) {
+    const parts = [];
+    if (clue.song) parts.push("“" + J.ui.format(clue.song) + "”");
+    if (clue.artist) parts.push(J.ui.format(clue.artist));
+    return parts.length ? '<p class="clue-credit">' + parts.join(" — ") + "</p>" : "";
   }
 
   // One chip per team with toggleable "correct" and "wrong" buttons.

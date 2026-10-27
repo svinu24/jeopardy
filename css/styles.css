@@ -719,3 +719,46 @@ code {
 .panel-sm {
   width: min(420px, 100%);
 }
+
+/* ---------- Finish the Lyric ---------- */
+.clue-lyric-label,
+.clue-cue-label {
+  display: block;
+  margin: 0 0 0.6em;
+  font-family: var(--font-display);
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  text-shadow: none;
+}
+
+.clue-lyric {
+  margin: 0 auto 0.6em;
+  max-width: 34ch;
+  font-style: italic;
+}
+
+.clue-lyric::before {
+  content: "“";
+  color: var(--gold-400);
+}
+
+.clue-cue {
+  max-width: 44ch;
+  margin: 0 auto 0.6em;
+  padding: 0.9em 1.2em;
+  border: 1px dashed rgba(245, 197, 66, 0.5);
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.25);
+  font-size: 0.8em;
+}
+
+.clue-answer .clue-credit {
+  margin-top: 0.6em;
+  font-family: var(--font-ui);
+  font-size: 0.7em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
