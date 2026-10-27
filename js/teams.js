@@ -28,7 +28,8 @@
       const mark = state.results[key][teamId];
       if (!mark) return;
       const [col, row] = key.split("-").map(Number);
-      score += mark * J.getClue(col, row).value;
+      const clue = J.data.categories[col] && J.data.categories[col].clues[row];
+      if (clue && !clue.pending) score += mark * clue.value; // ignore stale saves
     });
     return score;
   };

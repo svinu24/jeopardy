@@ -762,3 +762,78 @@ code {
   letter-spacing: 0.04em;
   color: var(--ink);
 }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 760px) {
+  .topbar {
+    padding: 8px 10px;
+  }
+
+  .progress {
+    display: none;
+  }
+
+  .stage {
+    padding: 0 6px;
+  }
+
+  .board {
+    --gap: 3px;
+    grid-template-rows: auto repeat(var(--rows, 7), minmax(46px, 1fr));
+    border-radius: 6px;
+  }
+
+  .category {
+    min-height: 58px;
+    padding: 4px 2px;
+    border-bottom-width: 2px;
+    font-size: clamp(0.55rem, 2.2vw, 0.75rem);
+    letter-spacing: 0;
+  }
+
+  .tile {
+    font-size: clamp(0.85rem, 3.6vw, 1.2rem);
+  }
+
+  .tile:not(.done):hover {
+    transform: none; /* avoid sticky hover zoom on touch */
+  }
+
+  .scoreboard {
+    gap: 6px;
+    padding: 8px 6px max(8px, env(safe-area-inset-bottom));
+  }
+
+  .team-card {
+    flex-basis: 100px;
+    gap: 2px 6px;
+    padding: 6px 8px 8px;
+  }
+
+  .team-name {
+    font-size: 0.68rem;
+  }
+
+  .icon-btn {
+    width: 26px;
+    height: 26px;
+  }
+
+  .clue-card {
+    min-height: 0;
+    border-radius: 14px;
+  }
+
+  .score-chip {
+    padding-left: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

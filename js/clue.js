@@ -3,6 +3,7 @@
   "use strict";
 
   const overlay = document.getElementById("clue-overlay");
+  const card = document.getElementById("clue-card");
   const categoryEl = document.getElementById("clue-category");
   const valueEl = document.getElementById("clue-value");
   const questionEl = document.getElementById("clue-question");
@@ -108,6 +109,22 @@
     renderScoring();
   }
 
+  // Grow the card out of the tile that was clicked, like the TV show.
+  function zoomFrom(tile) {
+    card.style.transition = "none";
+    card.style.transform = "none";
+    const to = card.getBoundingClientRect();
+    const from = tile.getBoundingClientRect();
+    const dx = from.left + from.width / 2 - (to.left + to.width / 2);
+    const dy = from.top + from.height / 2 - (to.top + to.height / 2);
+    const sx = from.width / to.width;
+    const sy = from.height / to.height;
+    card.style.transform = "translate(" + dx + "px, " + dy + "px) scale(" + sx + ", " + sy + ")";
+    void card.offsetWidth; // commit the starting position before animating
+    card.style.transition = "";
+    card.style.transform = "none";
+  }
+
   function open(col, row, tile) {
     const category = J.data.categories[col];
     const clue = category.clues[row];
@@ -124,6 +141,7 @@
     renderScoring();
 
     J.ui.show(overlay);
+    zoomFrom(tile);
     (clue.pending ? closeBtn : revealBtn).focus();
   }
 
@@ -146,6 +164,7 @@
       });
     }
     current = null;
+    card.style.transform = ""; // fall back to the stylesheet's shrink-out
     J.ui.hide(overlay);
     if (returnFocus) returnFocus.focus();
   }
