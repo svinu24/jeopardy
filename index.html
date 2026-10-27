@@ -24,8 +24,27 @@
 
   <footer class="scoreboard" id="scoreboard" aria-label="Scoreboard"></footer>
 
+  <div class="overlay" id="clue-overlay" hidden>
+    <section class="clue-card" id="clue-card" role="dialog" aria-modal="true" aria-labelledby="clue-category">
+      <header class="clue-meta">
+        <span class="clue-category" id="clue-category"></span>
+        <span class="clue-value" id="clue-value"></span>
+      </header>
+      <div class="clue-body">
+        <div class="clue-question" id="clue-question"></div>
+        <div class="clue-answer" id="clue-answer" hidden></div>
+      </div>
+      <footer class="clue-actions">
+        <button type="button" class="btn btn-ghost btn-lg" id="clue-close">Back to Board</button>
+        <button type="button" class="btn btn-gold btn-lg" id="clue-reveal">Reveal Answer</button>
+      </footer>
+    </section>
+  </div>
+
   <script src="js/questions.js"></script>
   <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/clue.js"></script>
   <script src="js/board.js"></script>
   <script src="js/main.js"></script>
 </body>

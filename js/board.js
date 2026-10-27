@@ -36,6 +36,11 @@
         tile.textContent = clue.value;
         tile.dataset.key = J.clueKey(col, row);
         tile.setAttribute("aria-label", cat.name + " for " + clue.value);
+        tile.addEventListener("click", (event) => {
+          // Played tiles stay locked; shift-click reopens one if the host needs a do-over.
+          if (tile.classList.contains("done") && !event.shiftKey) return;
+          J.clue.open(col, row, tile);
+        });
 
         tiles.push(tile);
         boardEl.appendChild(tile);
