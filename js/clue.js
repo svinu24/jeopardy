@@ -9,6 +9,7 @@
   const answerEl = document.getElementById("clue-answer");
   const revealBtn = document.getElementById("clue-reveal");
   const closeBtn = document.getElementById("clue-close");
+  const scoringEl = document.getElementById("clue-scoring");
 
   let current = null; // { key, clue, revealed }
   let returnFocus = null;
@@ -32,6 +33,59 @@
     return "<p>" + J.ui.format(clue.answer) + "</p>";
   }
 
+  // One chip per team with toggleable "correct" and "wrong" buttons.
+  function renderScoring() {
+    scoringEl.textContent = "";
+    if (!current || current.clue.pending) return;
+
+    const state = J.store.state;
+    const marks = state.results[current.key] || {};
+    const value = current.clue.value;
+
+    state.teams.forEach((team, i) => {
+      const chip = document.createElement("div");
+      chip.className = "score-chip";
+      chip.style.setProperty("--team-color", J.teamColor(i));
+
+      const name = document.createElement("span");
+      name.className = "score-chip-name";
+      name.textContent = team.name;
+      name.title = team.name;
+
+      chip.append(
+        name,
+        markButton(team, 1, "✓ +" + value, "Award " + value + " to " + team.name, marks),
+        markButton(team, -1, "✗ −" + value, "Deduct " + value + " from " + team.name, marks)
+      );
+      scoringEl.appendChild(chip);
+    });
+  }
+
+  function markButton(team, mark, label, ariaLabel, marks) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "mark-btn " + (mark > 0 ? "correct" : "wrong");
+    btn.textContent = label;
+    btn.setAttribute("aria-label", ariaLabel);
+    const active = marks[team.id] === mark;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+    btn.addEventListener("click", () => toggleMark(team.id, mark));
+    return btn;
+  }
+
+  // Clicking the same mark again undoes it; clicking the other one flips it.
+  function toggleMark(teamId, mark) {
+    const key = current.key;
+    J.store.update((state) => {
+      const marks = state.results[key] || (state.results[key] = {});
+      if (marks[teamId] === mark) delete marks[teamId];
+      else marks[teamId] = mark;
+      if (Object.keys(marks).length === 0) delete state.results[key];
+    });
+    renderScoring();
+  }
+
   function open(col, row, tile) {
     const category = J.data.categories[col];
     const clue = category.clues[row];
@@ -45,6 +99,7 @@
     answerEl.hidden = true;
     revealBtn.hidden = Boolean(clue.pending);
     closeBtn.textContent = "Back to Board";
+    renderScoring();
 
     J.ui.show(overlay);
     (clue.pending ? closeBtn : revealBtn).focus();
@@ -62,7 +117,8 @@
   function close() {
     if (!current) return;
     const key = current.key;
-    if (current.revealed) {
+    const scored = Boolean(J.store.state.results[key]);
+    if (current.revealed || scored) {
       J.store.update((state) => {
         state.done[key] = true;
       });
